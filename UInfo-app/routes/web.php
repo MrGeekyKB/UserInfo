@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EmpDataController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[HomeController::class, 'index'])->name('home.index');
+Route::get('/employes',[HomeController::class, 'emp_data'])->name('home.emp_data');
+Route::get('/insert',[HomeController::class, 'insert'])->name('home.insert');
+Route::get('/update',[HomeController::class, 'update'])->name('home.update');
+Route::get('/delete',[HomeController::class, 'delete'])->name('home.delete');
+Route::get('/about',[HomeController::class, 'about'])->name('home.about');
+
+//for controllers
+Route::resource('emp_data', EmpDataController::class);
