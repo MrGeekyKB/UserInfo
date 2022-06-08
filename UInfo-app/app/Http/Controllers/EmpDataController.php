@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employes;
+use DB;
 
 class EmpDataController extends Controller
 {
@@ -14,7 +15,15 @@ class EmpDataController extends Controller
      */
     public function index()
     {
-        return view('emp_data.index', ['Contact_Persons'=>Contact_Person::all()]);
+      //used for data retrive
+
+      // for all data
+
+         return view('employes_data', ['employes'=>employes::all()]);
+
+      // According to condition
+        // $employes = DB::select('select * from employes');
+        // return view('employes_data',['employes'=>$employes]);
     }
 
     /**
@@ -36,20 +45,22 @@ class EmpDataController extends Controller
     public function store(Request $request)
     {
       $request->validate([
-      'name'=>'required',
-      'msg'=>'required',
+      'fname'=>'required',
+      'lname'=>'required',
+      'birf'=>'required',
       'mobile'=>['required','integer'],
       ]);
 
-      $Contact_Person=new Contact_Person();
+      $EmpData=new Employes();
 
-      $Contact_Person->name=$request->input('name');
-      $Contact_Person->mobile=$request->input('mobile');
-      $Contact_Person->msg=$request->input('msg');
+      $EmpData->fname=$request->input('fname');
+      $EmpData->lname=$request->input('lname');
+      $EmpData->mobile=$request->input('mobile');
+      $EmpData->birf=$request->input('birf');
 
-      $Contact_Person->save();
+      $EmpData->save();
 
-      return redirect()->Route('a.index');
+      return redirect()->Route('home.index');
     }
 
     /**
@@ -58,9 +69,11 @@ class EmpDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($EmpData)
     {
-        //
+      return view('view_data.show', [
+        'EmpData' => EmpData::findOrFail($Contact_Person)
+      ]);
     }
 
     /**

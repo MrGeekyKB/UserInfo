@@ -23,3 +23,4 @@ Route::get('/about',[HomeController::class, 'about'])->name('home.about');
 
 //for controllers
 Route::resource('emp_data', EmpDataController::class);
+Route::resource('view_data', EmpDataController::class);
