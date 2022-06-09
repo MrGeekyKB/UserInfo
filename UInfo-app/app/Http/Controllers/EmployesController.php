@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employes;
-use DB;
 
-class EmpDataController extends Controller
+class EmployesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,15 +14,9 @@ class EmpDataController extends Controller
      */
     public function index()
     {
-      //used for data retrive
-
-      // for all data
-
-         return view('employes_data', ['employes'=>employes::all()]);
-
-      // According to condition
-        // $employes = DB::select('select * from employes');
-        // return view('employes_data',['employes'=>$employes]);
+      //foldernamee.pagename
+      // return view('employes.index');
+         return view('employes.index', ['employes'=>Employes::all()]);
     }
 
     /**
@@ -69,9 +62,9 @@ class EmpDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($employes)
+    public function show($id)
     {
-      return view('view_data.show', [
+      return view('employes.show', [
         'employes' => EmpData::findOrFail($employes)
       ]);
     }
