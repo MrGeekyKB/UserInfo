@@ -64,9 +64,18 @@ class EmployesController extends Controller
      */
     public function show($id)
     {
-      return view('employes.show', [
-        'employes' => EmpData::findOrFail($employes)
-      ]);
+       return view('employes.show', [
+        'employe' => Employes::findOrFail($id)
+       ]);
+
+      // $employes = self::getData();
+      // $index = array_search($id, array_column($employes, 'id'));
+      // if ($index === false) {
+      //   abort(404);
+      // }
+      // return view('employes.show', [
+      //   'employe' => $employes[$index]
+      // ]);
     }
 
     /**
@@ -77,7 +86,9 @@ class EmployesController extends Controller
      */
     public function edit($id)
     {
-        //
+      return view('employes.edit', [
+       'employe' => Employes::findOrFail($id)
+      ]);
     }
 
     /**
@@ -89,7 +100,23 @@ class EmployesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       $request->validate([
+      'fname'=>'required',
+      'lname'=>'required',
+      'birf'=>'required',
+      'mobile'=>['required','integer'],
+      ]);
+
+      $record = Employes::findOrFail($id);
+
+      $record->fname=$request->input('fname');
+      $record->lname=$request->input('lname');
+      $record->mobile=$request->input('mobile');
+      $record->birf=$request->input('birf');
+
+      $EmpData->save();
+
+      return redirect()->Route('home.index');
     }
 
     /**

@@ -4,8 +4,7 @@
 
 @if (count($employes)>0)
   @foreach ($employes as $employe)
-    <h3><a href="{{ route('employes.show', ['form' => $employes['id']])}}">{{$employe['fname']}}</a></h3>
-    <h3>{{$employe['fname']}}</h3>
+    <h3><a href="{{ route('employes.show', ['employe' => $employe['id']])}}">{{$employe['fname']}} {{$employe['lname']}}</a></h3>
     <p>{{$employe['mobile']}}</p>
   @endforeach
 @else

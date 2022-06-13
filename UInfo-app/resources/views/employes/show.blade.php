@@ -1,14 +1,11 @@
 @extends('layout')
 @section('content')
-<h1>Your are inside forms</h1>
+<div class="" style=" margin: auto; margin-top: 150px;background-color: rgb(255, 255, 255); box-shadow: 10px 10px 50px gray; width: 50%; padding: 15px">
+    <p>Name: {{$employe['fname']}}</p>
+    <p>Contact: {{$employe['mobile']}}</p>
+    <p>Birf: {{$employe['birf']}}</p>
+    <h3><a href="{{ route('employes.edit', ['employe' => $employe['id']])}}">Update</a></h3>
+</div>
 
-@if (count($employes)>0)
-  @foreach ($employes as $employe)
-    <h3><a href="{{ route('employes.show', ['form' => $employes['id']])}}">{{$employe['fname']}}</a></h3>
-    <h3>{{$employe['fname']}}</h3>
-    <p>{{$employe['mobile']}}</p>
-  @endforeach
-@else
-    <h2>erroe</h2>
-@endif
+
 @endsection
