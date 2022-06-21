@@ -19,6 +19,8 @@ Route::get('/insert',[HomeController::class, 'insert'])->name('home.insert');
 Route::get('/update',[HomeController::class, 'update'])->name('home.update');
 Route::get('/delete',[HomeController::class, 'delete'])->name('home.delete');
 Route::get('/about',[HomeController::class, 'about'])->name('home.about');
+Route::get('/about',[HomeController::class, 'about'])->name('home.about');
 
 //for controllers
 Route::resource('employes', EmployesController::class);
+Route::get('/insert',[EmployesController::class, 'insert'])->name('employes.insert');

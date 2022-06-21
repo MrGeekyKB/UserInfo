@@ -42,18 +42,32 @@ class EmployesController extends Controller
       'lname'=>'required',
       'birf'=>'required',
       'mobile'=>['required','integer'],
+      'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
       ]);
 
       $EmpData=new Employes();
+
+      $filenameWithExt = $request->file('image')->getClientOriginalName();
+      // Get Filename
+      $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+      // Get just Extension
+      $extension = $request->file('image')->getClientOriginalExtension();
+      // Filename To store
+      $fileNameToStore = $filename.'.'.$extension;
+      // UploadImage
+      $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
 
       $EmpData->fname=$request->input('fname');
       $EmpData->lname=$request->input('lname');
       $EmpData->mobile=$request->input('mobile');
       $EmpData->birf=$request->input('birf');
+      $EmpData->name = $filenameWithExt;
+      $EmpData->path = $path;
 
       $EmpData->save();
 
-      return redirect()->Route('home.index');
+      //return redirect()->Route('home.index');
+      return redirect()->Route('home.index')->with('status', 'Image Has been uploaded');
     }
 
     /**
@@ -105,18 +119,32 @@ class EmployesController extends Controller
       'lname'=>'required',
       'birf'=>'required',
       'mobile'=>['required','integer'],
+      'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
       ]);
 
       $record = Employes::findOrFail($id);
+
+
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            // Get Filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just Extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // Filename To store
+            $fileNameToStore = $filename.'.'.$extension;
+            // UploadImage
+            $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
 
       $record->fname=$request->input('fname');
       $record->lname=$request->input('lname');
       $record->mobile=$request->input('mobile');
       $record->birf=$request->input('birf');
+      $record->name = $filenameWithExt;
+      $record->path = $path;
 
-      $EmpData->save();
+      $record->save();
 
-      return redirect()->Route('home.index');
+      return redirect()->Route('employes.index');
     }
 
     /**
@@ -127,6 +155,11 @@ class EmployesController extends Controller
      */
     public function destroy($id)
     {
-        //
+      employes::where('id', $id)->delete();
+      return redirect()->Route('employes.index');
+    }
+
+    public function insert() {
+        return view('employes.insert');
     }
 }

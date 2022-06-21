@@ -9,10 +9,8 @@
     <nav>
       <a href="{{route('home.index')}}">Home</a>
       <a href="{{route('employes.index')}}">All Employes</a>
-      <a href="{{route('home.insert')}}">Insert Employes</a>
-      <a href="{{route('home.update')}}">Update Employes</a>
-      <a href="{{route('home.delete')}}">Delete Employes</a>
-      <a href="{{route('home.index')}}">About us</a>
+      <a href="{{route('employes.insert')}}">Add Employes</a>
+
     </nav>
     <div class="">
       @yield('content')

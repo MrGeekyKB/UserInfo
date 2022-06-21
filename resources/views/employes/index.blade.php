@@ -1,12 +1,12 @@
-@extends('layout')
+@extends('employes_layout')
 @section('content')
 <h1>Your are inside forms</h1>
 
 @if (count($employes)>0)
   @foreach ($employes as $employe)
-    <h3><a href="{{ route('emp_data.show', ['form' => $employes['fid']])}}">{{$employe['name']}}</a></h3>
-    <h3>{{$employe['fname']}}</h3>
+    <h3><a href="{{ route('employes.show', ['employe' => $employe['id']])}}">{{$employe['fname']}} {{$employe['lname']}}</a></h3>
     <p>{{$employe['mobile']}}</p>
+    <hr>
   @endforeach
 @else
     <h2>erroe</h2>
